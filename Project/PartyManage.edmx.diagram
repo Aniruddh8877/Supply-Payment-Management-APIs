@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="767de6c7fb8f49acb0de5d4832cccee8" Name="Diagram1" ZoomLevel="11">
+        <EntityTypeShape EntityType="PartyManageModel.App" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Backup" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.City" Width="1.5" PointX="9.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Company" Width="1.5" PointX="7.5" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Database" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Department" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Designation" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.District" Width="1.5" PointX="9.75" PointY="38.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.LoginLog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Menu" Width="1.5" PointX="10.5" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Page" Width="1.5" PointX="12.75" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.PageGroup" Width="1.5" PointX="7.5" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Role" Width="1.5" PointX="7.5" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.RoleMenu" Width="1.5" PointX="12.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.Staff" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.StaffLogin" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.StaffLoginRole" Width="1.5" PointX="9.75" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.State" Width="1.5" PointX="7.5" PointY="38.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PartyManageModel.StateMaster" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PartyManageModel.FK_Backup_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_City_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_City_State" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Company_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Database_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Database_Staff1" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Staff_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Staff_Designation" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_District_State" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Menu_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Menu_Page" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Menu_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_RoleMenu_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Page_PageGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Page_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_PageGroup_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Role_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_RoleMenu_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_StaffLoginRole_StaffLoginRole" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_RoleMenu_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_Staff_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_StaffLogin_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_StaffLogin_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_StaffLogin_StaffLogin1" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_StaffLoginRole_StaffLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_StaffLoginRole_StaffLogin1" ManuallyRouted="false" />
+        <AssociationConnector Association="PartyManageModel.FK_State_StaffLogin" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PartyManageModel.BalanceAccount" Width="1.5" PointX="7.5" PointY="42.5" />
+        <EntityTypeShape EntityType="PartyManageModel.Location" Width="1.5" PointX="8.25" PointY="15.25" />
+        <EntityTypeShape EntityType="PartyManageModel.PartyPaymentCollection" Width="1.5" PointX="7.5" PointY="24.25" />
+        <EntityTypeShape EntityType="PartyManageModel.PartyPaymentDetail" Width="1.5" PointX="15.75" PointY="27.125" />
+        <EntityTypeShape EntityType="PartyManageModel.PartySupplyItem" Width="1.5" PointX="12.75" PointY="19.375" />
+        <AssociationConnector Association="PartyManageModel.FK_BalanceAccount_Staff" />
+        <AssociationConnector Association="PartyManageModel.FK_BalanceAccount_Staff1" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_BalanceAccount" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentCollection_Staff" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentCollection_Staff1" />
+        <AssociationConnector Association="PartyManageModel.FK_PartySupplyItem_PartyPaymentCollection" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1" />
+        <AssociationConnector Association="PartyManageModel.FK_PartySupplyPayment_Staff" />
+        <AssociationConnector Association="PartyManageModel.FK_PartySupplyPayment_Staff1" />
+        <EntityTypeShape EntityType="PartyManageModel.PartyDetail" Width="1.5" PointX="10.5" PointY="14.75" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyDetail_Location" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyDetail_Staff" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyDetail_Staff1" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_PartyDetail" />
+        <AssociationConnector Association="PartyManageModel.FK_PartySupplyItem_PartyDetail" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
