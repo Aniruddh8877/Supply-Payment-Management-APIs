@@ -36,11 +36,10 @@ namespace Project
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> PartyPaymentCollectionId { get; set; }
     
-        public virtual PartyPaymentCollection PartyPaymentCollection { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartyPaymentDetail> PartyPaymentDetails { get; set; }
+        public virtual PartyDetail PartyDetail { get; set; }
         public virtual StaffLogin StaffLogin { get; set; }
         public virtual StaffLogin StaffLogin1 { get; set; }
-        public virtual PartyDetail PartyDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartyPaymentDetail> PartyPaymentDetails { get; set; }
     }
 }

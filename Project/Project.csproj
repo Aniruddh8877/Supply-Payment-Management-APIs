@@ -119,7 +119,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PartyManage.edmx</DependentUpon>
     </Compile>
-    <Compile Include="PartyPaymentCollection.cs">
+    <Compile Include="PartyPayment.cs">
       <DependentUpon>PartyManage.tt</DependentUpon>
     </Compile>
     <Compile Include="PartyPaymentDetail.cs">

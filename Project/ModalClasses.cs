@@ -16,9 +16,9 @@ namespace Project
 
 
     //payment
-    public class PartyPaymentCollectionModel
+    public class PartyPaymentModel
     {
-        public PartyPaymentCollection GetPartyPaymentCollection { get; set; }
+        public PartyPayment GetPartyPayment { get; set; }
 
         //public PartyDetail GetPartyDetail { get; set; }
 

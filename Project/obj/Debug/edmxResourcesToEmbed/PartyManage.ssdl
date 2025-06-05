@@ -185,11 +185,11 @@
     <Property Name="UpdatedBy" Type="int" />
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
-  <EntityType Name="PartyPaymentCollection">
+  <EntityType Name="PartyPayment">
     <Key>
-      <PropertyRef Name="PartyPaymentCollectionId" />
+      <PropertyRef Name="PartyPaymentId" />
     </Key>
-    <Property Name="PartyPaymentCollectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PartyPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PaymentDate" Type="datetime" Nullable="false" />
     <Property Name="PartyId" Type="int" Nullable="false" />
     <Property Name="Particular" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -198,7 +198,7 @@
     <Property Name="Remarks" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TransactionNo" Type="nvarchar" MaxLength="50" />
     <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
-    <Property Name="DDNO" Type="nvarchar" MaxLength="50" />
+    <Property Name="DDNo" Type="nvarchar" MaxLength="50" />
     <Property Name="Status" Type="tinyint" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -214,9 +214,10 @@
     <Property Name="PaymentDate" Type="datetime" Nullable="false" />
     <Property Name="PartySupplyItemId" Type="int" />
     <Property Name="Particular" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
     <Property Name="DebitAmount" Type="money" Nullable="false" />
     <Property Name="CreditAmount" Type="money" Nullable="false" />
-    <Property Name="PartyPaymentCollectionId" Type="int" />
+    <Property Name="PartyPaymentId" Type="int" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedOn" Type="datetime" Nullable="false" />
     <Property Name="UpdatedBy" Type="int" />
@@ -350,7 +351,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BalanceAccount_Staff">
+  <Association Name="FK_BalanceAccount_StaffLogin">
     <End Role="StaffLogin" Type="Self.StaffLogin" Multiplicity="1" />
     <End Role="BalanceAccount" Type="Self.BalanceAccount" Multiplicity="*" />
     <ReferentialConstraint>
@@ -362,7 +363,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BalanceAccount_Staff1">
+  <Association Name="FK_BalanceAccount_StaffLogin1">
     <End Role="StaffLogin" Type="Self.StaffLogin" Multiplicity="0..1" />
     <End Role="BalanceAccount" Type="Self.BalanceAccount" Multiplicity="*" />
     <ReferentialConstraint>
@@ -556,26 +557,38 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PartyPayment_PartyDetail">
+    <End Role="PartyDetail" Type="Self.PartyDetail" Multiplicity="1" />
+    <End Role="PartyPayment" Type="Self.PartyPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PartyDetail">
+        <PropertyRef Name="PartyId" />
+      </Principal>
+      <Dependent Role="PartyPayment">
+        <PropertyRef Name="PartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PartyPaymentCollection_Staff">
     <End Role="StaffLogin" Type="Self.StaffLogin" Multiplicity="0..1" />
-    <End Role="PartyPaymentCollection" Type="Self.PartyPaymentCollection" Multiplicity="*" />
+    <End Role="PartyPayment" Type="Self.PartyPayment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="StaffLogin">
         <PropertyRef Name="StaffLoginId" />
       </Principal>
-      <Dependent Role="PartyPaymentCollection">
+      <Dependent Role="PartyPayment">
         <PropertyRef Name="UpdatedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PartyPaymentCollection_Staff1">
     <End Role="StaffLogin" Type="Self.StaffLogin" Multiplicity="1" />
-    <End Role="PartyPaymentCollection" Type="Self.PartyPaymentCollection" Multiplicity="*" />
+    <End Role="PartyPayment" Type="Self.PartyPayment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="StaffLogin">
         <PropertyRef Name="StaffLoginId" />
       </Principal>
-      <Dependent Role="PartyPaymentCollection">
+      <Dependent Role="PartyPayment">
         <PropertyRef Name="CreatedBy" />
       </Dependent>
     </ReferentialConstraint>
@@ -649,18 +662,6 @@
       </Principal>
       <Dependent Role="PartySupplyItem">
         <PropertyRef Name="PartyId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PartySupplyItem_PartyPaymentCollection">
-    <End Role="PartyPaymentCollection" Type="Self.PartyPaymentCollection" Multiplicity="0..1" />
-    <End Role="PartySupplyItem" Type="Self.PartySupplyItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PartyPaymentCollection">
-        <PropertyRef Name="PartyPaymentCollectionId" />
-      </Principal>
-      <Dependent Role="PartySupplyItem">
-        <PropertyRef Name="PartyPaymentCollectionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -874,7 +875,7 @@
     <EntitySet Name="Page" EntityType="Self.Page" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PageGroup" EntityType="Self.PageGroup" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PartyDetail" EntityType="Self.PartyDetail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PartyPaymentCollection" EntityType="Self.PartyPaymentCollection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PartyPayment" EntityType="Self.PartyPayment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PartyPaymentDetail" EntityType="Self.PartyPaymentDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PartySupplyItem" EntityType="Self.PartySupplyItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -888,11 +889,11 @@
       <End Role="Staff" EntitySet="Staff" />
       <End Role="Backup" EntitySet="Backup" />
     </AssociationSet>
-    <AssociationSet Name="FK_BalanceAccount_Staff" Association="Self.FK_BalanceAccount_Staff">
+    <AssociationSet Name="FK_BalanceAccount_StaffLogin" Association="Self.FK_BalanceAccount_StaffLogin">
       <End Role="StaffLogin" EntitySet="StaffLogin" />
       <End Role="BalanceAccount" EntitySet="BalanceAccount" />
     </AssociationSet>
-    <AssociationSet Name="FK_BalanceAccount_Staff1" Association="Self.FK_BalanceAccount_Staff1">
+    <AssociationSet Name="FK_BalanceAccount_StaffLogin1" Association="Self.FK_BalanceAccount_StaffLogin1">
       <End Role="StaffLogin" EntitySet="StaffLogin" />
       <End Role="BalanceAccount" EntitySet="BalanceAccount" />
     </AssociationSet>
@@ -956,13 +957,17 @@
       <End Role="StaffLogin" EntitySet="StaffLogin" />
       <End Role="PartyDetail" EntitySet="PartyDetail" />
     </AssociationSet>
+    <AssociationSet Name="FK_PartyPayment_PartyDetail" Association="Self.FK_PartyPayment_PartyDetail">
+      <End Role="PartyDetail" EntitySet="PartyDetail" />
+      <End Role="PartyPayment" EntitySet="PartyPayment" />
+    </AssociationSet>
     <AssociationSet Name="FK_PartyPaymentCollection_Staff" Association="Self.FK_PartyPaymentCollection_Staff">
       <End Role="StaffLogin" EntitySet="StaffLogin" />
-      <End Role="PartyPaymentCollection" EntitySet="PartyPaymentCollection" />
+      <End Role="PartyPayment" EntitySet="PartyPayment" />
     </AssociationSet>
     <AssociationSet Name="FK_PartyPaymentCollection_Staff1" Association="Self.FK_PartyPaymentCollection_Staff1">
       <End Role="StaffLogin" EntitySet="StaffLogin" />
-      <End Role="PartyPaymentCollection" EntitySet="PartyPaymentCollection" />
+      <End Role="PartyPayment" EntitySet="PartyPayment" />
     </AssociationSet>
     <AssociationSet Name="FK_PartyPaymentDetail_BalanceAccount" Association="Self.FK_PartyPaymentDetail_BalanceAccount">
       <End Role="BalanceAccount" EntitySet="BalanceAccount" />
@@ -986,10 +991,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_PartySupplyItem_PartyDetail" Association="Self.FK_PartySupplyItem_PartyDetail">
       <End Role="PartyDetail" EntitySet="PartyDetail" />
-      <End Role="PartySupplyItem" EntitySet="PartySupplyItem" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PartySupplyItem_PartyPaymentCollection" Association="Self.FK_PartySupplyItem_PartyPaymentCollection">
-      <End Role="PartyPaymentCollection" EntitySet="PartyPaymentCollection" />
       <End Role="PartySupplyItem" EntitySet="PartySupplyItem" />
     </AssociationSet>
     <AssociationSet Name="FK_PartySupplyPayment_Staff" Association="Self.FK_PartySupplyPayment_Staff">

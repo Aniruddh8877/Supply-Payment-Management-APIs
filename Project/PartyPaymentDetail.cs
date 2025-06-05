@@ -19,9 +19,10 @@ namespace Project
         public System.DateTime PaymentDate { get; set; }
         public Nullable<int> PartySupplyItemId { get; set; }
         public string Particular { get; set; }
+        public string Remarks { get; set; }
         public decimal DebitAmount { get; set; }
         public decimal CreditAmount { get; set; }
-        public Nullable<int> PartyPaymentCollectionId { get; set; }
+        public Nullable<int> PartyPaymentId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
@@ -29,9 +30,9 @@ namespace Project
         public Nullable<int> BalanceAccountId { get; set; }
     
         public virtual BalanceAccount BalanceAccount { get; set; }
+        public virtual PartyDetail PartyDetail { get; set; }
         public virtual PartySupplyItem PartySupplyItem { get; set; }
         public virtual StaffLogin StaffLogin { get; set; }
         public virtual StaffLogin StaffLogin1 { get; set; }
-        public virtual PartyDetail PartyDetail { get; set; }
     }
 }

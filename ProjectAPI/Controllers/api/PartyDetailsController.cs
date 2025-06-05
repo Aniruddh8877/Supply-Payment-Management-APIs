@@ -115,14 +115,7 @@ namespace ProjectAPI.Controllers.api
                      
                     dbContext.PartyDetails.Add(partyDetail);
                 }
-                var validationErrors = dbContext.GetValidationErrors();
-                foreach (var error in validationErrors)
-                {
-                    foreach (var err in error.ValidationErrors)
-                    {
-                        Console.WriteLine($"Property: {err.PropertyName} Error: {err.ErrorMessage}");
-                    }
-                }
+               
 
                 dbContext.SaveChanges();
                 response.Message = ConstantData.SuccessMessage;
@@ -166,12 +159,13 @@ namespace ProjectAPI.Controllers.api
                 AppData.CheckAppKey(dataContext, AppKey, (byte)KeyFor.Admin);
                 var decryptData = CryptoJs.Decrypt(requestModel.request, CryptoJs.key, CryptoJs.iv);
                 PartyDetail model = JsonConvert.DeserializeObject<PartyDetail>(decryptData);
-                var partyDetail = dataContext.PartyDetails.FirstOrDefault(x => x.PartyId == model.PartyId);
+                var partyDetail = dataContext.PartyDetails.First(x => x.PartyId == model.PartyId);
                 if (partyDetail == null)
                 {
-                    res.Message = "Patient not found";
+                    res.Message = "Party not found";
                     return res;
                 }
+
 
                 dataContext.PartyDetails.Remove(partyDetail);
                 dataContext.SaveChanges();
@@ -179,15 +173,11 @@ namespace ProjectAPI.Controllers.api
             }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("FK"))
-                {
-                    res.Message = "This record is in use. Can't delete.";
-                }
-                else
-                {
-                    res.Message = ex.Message;
-                }
+               
+                res.Message = "Records Present to this Party so can't detele this Party";
+                
             }
+
             return res;
         }
 

@@ -17,11 +17,17 @@ namespace Project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StaffLogin()
         {
+            this.BalanceAccounts = new HashSet<BalanceAccount>();
+            this.BalanceAccounts1 = new HashSet<BalanceAccount>();
             this.Cities = new HashSet<City>();
             this.Companies = new HashSet<Company>();
             this.Menus = new HashSet<Menu>();
             this.Pages = new HashSet<Page>();
             this.PageGroups = new HashSet<PageGroup>();
+            this.PartyDetails = new HashSet<PartyDetail>();
+            this.PartyDetails1 = new HashSet<PartyDetail>();
+            this.PartySupplyItems = new HashSet<PartySupplyItem>();
+            this.PartySupplyItems1 = new HashSet<PartySupplyItem>();
             this.Roles = new HashSet<Role>();
             this.RoleMenus = new HashSet<RoleMenu>();
             this.Staffs = new HashSet<Staff>();
@@ -30,16 +36,10 @@ namespace Project
             this.StaffLoginRoles = new HashSet<StaffLoginRole>();
             this.StaffLoginRoles1 = new HashSet<StaffLoginRole>();
             this.States = new HashSet<State>();
-            this.BalanceAccounts = new HashSet<BalanceAccount>();
-            this.BalanceAccounts1 = new HashSet<BalanceAccount>();
-            this.PartyPaymentCollections = new HashSet<PartyPaymentCollection>();
-            this.PartyPaymentCollections1 = new HashSet<PartyPaymentCollection>();
+            this.PartyPayments = new HashSet<PartyPayment>();
+            this.PartyPayments1 = new HashSet<PartyPayment>();
             this.PartyPaymentDetails = new HashSet<PartyPaymentDetail>();
             this.PartyPaymentDetails1 = new HashSet<PartyPaymentDetail>();
-            this.PartySupplyItems = new HashSet<PartySupplyItem>();
-            this.PartySupplyItems1 = new HashSet<PartySupplyItem>();
-            this.PartyDetails = new HashSet<PartyDetail>();
-            this.PartyDetails1 = new HashSet<PartyDetail>();
         }
     
         public int StaffLoginId { get; set; }
@@ -53,6 +53,10 @@ namespace Project
         public byte Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BalanceAccount> BalanceAccounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BalanceAccount> BalanceAccounts1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<City> Cities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Company> Companies { get; set; }
@@ -62,6 +66,14 @@ namespace Project
         public virtual ICollection<Page> Pages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PageGroup> PageGroups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartyDetail> PartyDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartyDetail> PartyDetails1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartySupplyItem> PartySupplyItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartySupplyItem> PartySupplyItems1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -82,24 +94,12 @@ namespace Project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<State> States { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BalanceAccount> BalanceAccounts { get; set; }
+        public virtual ICollection<PartyPayment> PartyPayments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BalanceAccount> BalanceAccounts1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartyPaymentCollection> PartyPaymentCollections { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartyPaymentCollection> PartyPaymentCollections1 { get; set; }
+        public virtual ICollection<PartyPayment> PartyPayments1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartyPaymentDetail> PartyPaymentDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartyPaymentDetail> PartyPaymentDetails1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartySupplyItem> PartySupplyItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartySupplyItem> PartySupplyItems1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartyDetail> PartyDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartyDetail> PartyDetails1 { get; set; }
     }
 }

@@ -27,16 +27,20 @@ namespace Project
     
         public virtual DbSet<App> Apps { get; set; }
         public virtual DbSet<Backup> Backups { get; set; }
+        public virtual DbSet<BalanceAccount> BalanceAccounts { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Database> Databases { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<LoginLog> LoginLogs { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<PageGroup> PageGroups { get; set; }
+        public virtual DbSet<PartyDetail> PartyDetails { get; set; }
+        public virtual DbSet<PartySupplyItem> PartySupplyItems { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RoleMenu> RoleMenus { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
@@ -44,11 +48,7 @@ namespace Project
         public virtual DbSet<StaffLoginRole> StaffLoginRoles { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<StateMaster> StateMasters { get; set; }
-        public virtual DbSet<BalanceAccount> BalanceAccounts { get; set; }
-        public virtual DbSet<Location> Locations { get; set; }
-        public virtual DbSet<PartyPaymentCollection> PartyPaymentCollections { get; set; }
+        public virtual DbSet<PartyPayment> PartyPayments { get; set; }
         public virtual DbSet<PartyPaymentDetail> PartyPaymentDetails { get; set; }
-        public virtual DbSet<PartySupplyItem> PartySupplyItems { get; set; }
-        public virtual DbSet<PartyDetail> PartyDetails { get; set; }
     }
 }

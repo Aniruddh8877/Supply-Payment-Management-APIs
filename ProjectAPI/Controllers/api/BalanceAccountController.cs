@@ -37,8 +37,8 @@ namespace ProjectAPI.Controllers.api
                             {
                                 b1.BalanceAccoountId,
                                 b1.PartyId,
-                               PartyName = loc != null ? loc.PartyName : null,
-                                PartyCode = loc !=null? loc.PartyCode:null,
+                                PartyName = loc != null ? loc.PartyName : null,
+                                PartyCode = loc != null ? loc.PartyCode : null,
                                 b1.Openingdate,
                                 b1.Debit,
                                 b1.Credit,
@@ -103,43 +103,44 @@ namespace ProjectAPI.Controllers.api
                         };
                         dbContext.BalanceAccounts.Add(balanceAccount);
                     }
-                    dbContext.SaveChanges();  
+                    dbContext.SaveChanges();
 
 
-                    //PartyPaymentDetail partyPaymentDetail;
-                    //if (model.GetPartyPaymentDetail.PartyPaymentCollectionId > 0)
-                    //{
-                    //    partyPaymentDetail = dbContext.PartyPaymentDetails.First(x => x.PaymentDetailId == model.GetPartyPaymentDetail.PaymentDetailId);
-                    //    if (partyPaymentDetail == null)
-                    //    {
-                    //        response.Message = "details not found";
-                    //        return response;
-
-                    //    }
-                    //    partyPaymentDetail.PaymentDate = model.GetPartyPaymentDetail.PaymentDate;
-                    //    partyPaymentDetail.Particular = model.GetPartyPaymentDetail.Particular;
-                    //    partyPaymentDetail.DebitAmount = model.GetPartyPaymentDetail.DebitAmount;
-                    //    partyPaymentDetail.CreditAmount = model.GetPartyPaymentDetail.CreditAmount;
-                    //    //partyPaymentDetail. = model.GetPartyPaymentCollection.Status;
-                    //    partyPaymentDetail.UpdatedBy = model.GetPartyPaymentDetail.UpdatedBy;
-                    //    partyPaymentDetail.UpdatedOn = DateTime.Now;
-                    //}
-                    //else
-                    //{
-                    PartyPaymentDetail partyPaymentDetail = new PartyPaymentDetail
+                    PartyPaymentDetail partyPaymentDetail;
+                    if (model.GetPartyPaymentDetail.PartyPaymentId > 0)
                     {
-                        BalanceAccountId = balanceAccount.BalanceAccoountId,
-                        PartyId = balanceAccount.PartyId,
-                        PaymentDate = balanceAccount.Openingdate,
-                        DebitAmount = balanceAccount.Debit,
-                        CreditAmount = balanceAccount.Credit,
-                        CreatedBy = balanceAccount.CreatedBy,
-                        CreatedOn = DateTime.Now,
-                        Particular = "Opening\\",
+                        partyPaymentDetail = dbContext.PartyPaymentDetails.First(x => x.PaymentDetailId == model.GetPartyPaymentDetail.PaymentDetailId);
+                        if (partyPaymentDetail == null)
+                        {
+                            response.Message = "details not found";
+                            return response;
 
-                    };
-                    dbContext.PartyPaymentDetails.Add(partyPaymentDetail);
-                    //}
+                        }
+                        partyPaymentDetail.PaymentDate = model.GetPartyPaymentDetail.PaymentDate;
+                        partyPaymentDetail.Particular = model.GetPartyPaymentDetail.Particular;
+                        partyPaymentDetail.DebitAmount = model.GetPartyPaymentDetail.DebitAmount;
+                        partyPaymentDetail.CreditAmount = model.GetPartyPaymentDetail.CreditAmount;
+                        //partyPaymentDetail. = model.GetPartyPaymentCollection.Status;
+                        partyPaymentDetail.UpdatedBy = model.GetPartyPaymentDetail.UpdatedBy;
+                        partyPaymentDetail.UpdatedOn = DateTime.Now;
+                    }
+                    else
+                    {
+                        partyPaymentDetail = new PartyPaymentDetail
+                        {
+
+                            BalanceAccountId = balanceAccount.BalanceAccoountId,
+                            PartyId = balanceAccount.PartyId,
+                            PaymentDate = balanceAccount.Openingdate,
+                            DebitAmount = balanceAccount.Debit,
+                            CreditAmount = balanceAccount.Credit,
+                            CreatedBy = balanceAccount.CreatedBy,
+                            CreatedOn = DateTime.Now,
+                            Particular = "Opening\\",
+                        };
+                        dbContext.PartyPaymentDetails.Add(partyPaymentDetail);
+
+                    }
                     dbContext.SaveChanges();
                     transaction.Commit();
                     response.Message = ConstantData.SuccessMessage;
@@ -191,7 +192,7 @@ namespace ProjectAPI.Controllers.api
 
         //            int BalanceId = model.GetBalanceAccount.BalanceAccoountId;
 
-                    
+
         //            var surgery = dbContext.BalanceAccounts.FirstOrDefault(x => x.BalanceAccoountId == BalanceId);
         //            if (surgery == null)
         //            {
@@ -215,7 +216,7 @@ namespace ProjectAPI.Controllers.api
 
         //            dbContext.SaveChanges();
 
-                    
+
         //            var allPartyPaymentDetails = PartyPaymentDetail.Select(pc => pc.PaymentDetailId).ToList();
         //            var packageBookingDetails = dbContext.PartyPaymentDetails
         //                .Where(pbd => allPartyPaymentDetails.Contains(pbd.PaymentDetailId))

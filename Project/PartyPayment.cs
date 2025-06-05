@@ -12,15 +12,9 @@ namespace Project
     using System;
     using System.Collections.Generic;
     
-    public partial class PartyPaymentCollection
+    public partial class PartyPayment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PartyPaymentCollection()
-        {
-            this.PartySupplyItems = new HashSet<PartySupplyItem>();
-        }
-    
-        public int PartyPaymentCollectionId { get; set; }
+        public int PartyPaymentId { get; set; }
         public System.DateTime PaymentDate { get; set; }
         public int PartyId { get; set; }
         public string Particular { get; set; }
@@ -29,16 +23,15 @@ namespace Project
         public string Remarks { get; set; }
         public string TransactionNo { get; set; }
         public string ChequeNo { get; set; }
-        public string DDNO { get; set; }
+        public string DDNo { get; set; }
         public byte Status { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
     
+        public virtual PartyDetail PartyDetail { get; set; }
         public virtual StaffLogin StaffLogin { get; set; }
         public virtual StaffLogin StaffLogin1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartySupplyItem> PartySupplyItems { get; set; }
     }
 }
