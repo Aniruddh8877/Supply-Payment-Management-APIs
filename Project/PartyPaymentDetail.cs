@@ -31,6 +31,7 @@ namespace Project
     
         public virtual BalanceAccount BalanceAccount { get; set; }
         public virtual PartyDetail PartyDetail { get; set; }
+        public virtual PartyPayment PartyPayment { get; set; }
         public virtual PartySupplyItem PartySupplyItem { get; set; }
         public virtual StaffLogin StaffLogin { get; set; }
         public virtual StaffLogin StaffLogin1 { get; set; }

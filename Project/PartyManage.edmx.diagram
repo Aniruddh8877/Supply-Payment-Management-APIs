@@ -6,31 +6,34 @@
     <edmx:Diagrams>
       <Diagram DiagramId="767de6c7fb8f49acb0de5d4832cccee8" Name="Diagram1" ZoomLevel="11">
         <EntityTypeShape EntityType="PartyManageModel.App" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PartyManageModel.Backup" Width="1.5" PointX="5.25" PointY="37" />
-        <EntityTypeShape EntityType="PartyManageModel.BalanceAccount" Width="1.5" PointX="7.5" PointY="26.5" />
-        <EntityTypeShape EntityType="PartyManageModel.City" Width="1.5" PointX="9.75" PointY="33.875" />
-        <EntityTypeShape EntityType="PartyManageModel.Company" Width="1.5" PointX="7.5" PointY="35" />
-        <EntityTypeShape EntityType="PartyManageModel.Database" Width="1.5" PointX="5.25" PointY="40.25" />
-        <EntityTypeShape EntityType="PartyManageModel.Department" Width="1.5" PointX="0.75" PointY="26.875" />
-        <EntityTypeShape EntityType="PartyManageModel.Designation" Width="1.5" PointX="0.75" PointY="23.875" />
-        <EntityTypeShape EntityType="PartyManageModel.District" Width="1.5" PointX="9.75" PointY="47.75" />
-        <EntityTypeShape EntityType="PartyManageModel.Location" Width="1.5" PointX="5.25" PointY="17.5" />
+        <EntityTypeShape EntityType="PartyManageModel.Backup" Width="1.5" PointX="5.25" PointY="19" />
+        <EntityTypeShape EntityType="PartyManageModel.BalanceAccount" Width="1.5" PointX="7.5" PointY="49.375" />
+        <EntityTypeShape EntityType="PartyManageModel.City" Width="1.5" PointX="12.75" PointY="34.625" />
+        <EntityTypeShape EntityType="PartyManageModel.Company" Width="1.5" PointX="7.5" PointY="53.375" />
+        <EntityTypeShape EntityType="PartyManageModel.Database" Width="1.5" PointX="5.25" PointY="15.5" />
+        <EntityTypeShape EntityType="PartyManageModel.Department" Width="1.5" PointX="0.75" PointY="24.25" />
+        <EntityTypeShape EntityType="PartyManageModel.Designation" Width="1.5" PointX="0.75" PointY="27.25" />
+        <EntityTypeShape EntityType="PartyManageModel.District" Width="1.5" PointX="9.75" PointY="39.875" />
+        <EntityTypeShape EntityType="PartyManageModel.Location" Width="1.5" PointX="8.25" PointY="26.625" />
         <EntityTypeShape EntityType="PartyManageModel.LoginLog" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PartyManageModel.Menu" Width="1.5" PointX="12.5" PointY="22.5" />
-        <EntityTypeShape EntityType="PartyManageModel.Page" Width="1.5" PointX="9.75" PointY="37.25" />
-        <EntityTypeShape EntityType="PartyManageModel.PageGroup" Width="1.5" PointX="7.5" PointY="50.75" />
-        <EntityTypeShape EntityType="PartyManageModel.PartyDetail" Width="1.5" PointX="7.5" PointY="21" />
-        <EntityTypeShape EntityType="PartyManageModel.PartySupplyItem" Width="1.5" PointX="12.75" PointY="16.625" />
-        <EntityTypeShape EntityType="PartyManageModel.Role" Width="1.5" PointX="7.5" PointY="12.5" />
-        <EntityTypeShape EntityType="PartyManageModel.RoleMenu" Width="1.5" PointX="15.75" PointY="18.75" />
-        <EntityTypeShape EntityType="PartyManageModel.Staff" Width="1.5" PointX="3" PointY="24.5" />
-        <EntityTypeShape EntityType="PartyManageModel.StaffLogin" Width="1.5" PointX="5.25" PointY="20.5" />
-        <EntityTypeShape EntityType="PartyManageModel.StaffLoginRole" Width="1.5" PointX="9.75" PointY="19.125" />
-        <EntityTypeShape EntityType="PartyManageModel.State" Width="1.5" PointX="7.5" PointY="47.25" />
+        <EntityTypeShape EntityType="PartyManageModel.Menu" Width="1.5" PointX="7.5" PointY="29.75" />
+        <EntityTypeShape EntityType="PartyManageModel.Page" Width="1.5" PointX="9.75" PointY="35" />
+        <EntityTypeShape EntityType="PartyManageModel.PageGroup" Width="1.5" PointX="7.5" PointY="42.875" />
+        <EntityTypeShape EntityType="PartyManageModel.PartyDetail" Width="1.5" PointX="10.5" PointY="29.125" />
+        <EntityTypeShape EntityType="PartyManageModel.PartyPayment" Width="1.5" PointX="15.75" PointY="29" />
+        <EntityTypeShape EntityType="PartyManageModel.PartyPaymentDetail" Width="1.5" PointX="15.75" PointY="36.75" />
+        <EntityTypeShape EntityType="PartyManageModel.PartySupplyItem" Width="1.5" PointX="12.75" PointY="24.25" />
+        <EntityTypeShape EntityType="PartyManageModel.Role" Width="1.5" PointX="7.5" PointY="46" />
+        <EntityTypeShape EntityType="PartyManageModel.RoleMenu" Width="1.5" PointX="12.75" PointY="30.625" />
+        <EntityTypeShape EntityType="PartyManageModel.Staff" Width="1.5" PointX="3" PointY="25" />
+        <EntityTypeShape EntityType="PartyManageModel.StaffLogin" Width="1.5" PointX="5.25" PointY="27.75" />
+        <EntityTypeShape EntityType="PartyManageModel.StaffLoginRole" Width="1.5" PointX="12.75" PointY="38.875" />
+        <EntityTypeShape EntityType="PartyManageModel.State" Width="1.5" PointX="7.5" PointY="39.375" />
         <EntityTypeShape EntityType="PartyManageModel.StateMaster" Width="1.5" PointX="4.75" PointY="0.75" />
         <AssociationConnector Association="PartyManageModel.FK_Backup_Staff" />
         <AssociationConnector Association="PartyManageModel.FK_BalanceAccount_StaffLogin" />
         <AssociationConnector Association="PartyManageModel.FK_BalanceAccount_StaffLogin1" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_BalanceAccount" />
         <AssociationConnector Association="PartyManageModel.FK_City_StaffLogin" />
         <AssociationConnector Association="PartyManageModel.FK_City_State" />
         <AssociationConnector Association="PartyManageModel.FK_Company_StaffLogin" />
@@ -49,7 +52,15 @@
         <AssociationConnector Association="PartyManageModel.FK_PageGroup_StaffLogin" />
         <AssociationConnector Association="PartyManageModel.FK_PartyDetail_Staff" />
         <AssociationConnector Association="PartyManageModel.FK_PartyDetail_Staff1" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPayment_PartyDetail" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_PartyDetail" />
         <AssociationConnector Association="PartyManageModel.FK_PartySupplyItem_PartyDetail" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentCollection_Staff" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentCollection_Staff1" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_PartyPayment" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin" />
+        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1" />
         <AssociationConnector Association="PartyManageModel.FK_PartySupplyPayment_Staff" />
         <AssociationConnector Association="PartyManageModel.FK_PartySupplyPayment_Staff1" />
         <AssociationConnector Association="PartyManageModel.FK_Role_StaffLogin" />
@@ -63,17 +74,7 @@
         <AssociationConnector Association="PartyManageModel.FK_StaffLoginRole_StaffLogin" />
         <AssociationConnector Association="PartyManageModel.FK_StaffLoginRole_StaffLogin1" />
         <AssociationConnector Association="PartyManageModel.FK_State_StaffLogin" />
-        <EntityTypeShape EntityType="PartyManageModel.PartyPayment" Width="1.5" PointX="14.75" PointY="23.125" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPayment_PartyDetail" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentCollection_Staff" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentCollection_Staff1" />
-        <EntityTypeShape EntityType="PartyManageModel.PartyPaymentDetail" Width="1.5" PointX="17" PointY="22.875" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_BalanceAccount" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_PartyDetail" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin" />
-        <AssociationConnector Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1" />
-        </Diagram>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

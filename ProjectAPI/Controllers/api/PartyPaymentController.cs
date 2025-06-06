@@ -41,8 +41,11 @@ namespace ProjectAPI.Controllers.api
                                 d1.Status,
                                 d1.Remarks,
                                 d1.ChequeNo,
+                                d1.ChequeDate,
+                                d1.BankName,
+                                d1.BranchName,
                                 d1.DDNo,
-                                d1.TransactionNo    ,
+                                d1.TransactionNo,
                                 d1.CreatedBy,
                                 d1.CreatedOn,
                                 d1.UpdatedBy,
@@ -78,7 +81,7 @@ namespace ProjectAPI.Controllers.api
                     if (model.GetPartyPayment.PartyPaymentId > 0)
                     {
                         partyPayment = dbContext.PartyPayments.First(x => x.PartyPaymentId == model.GetPartyPayment.PartyPaymentId);
-                        if(partyPayment == null)
+                        if (partyPayment == null)
                         {
                             response.Message = "details not found";
                             return response;
@@ -90,6 +93,9 @@ namespace ProjectAPI.Controllers.api
                         partyPayment.PaymentMode = model.GetPartyPayment.PaymentMode;
                         partyPayment.Status = model.GetPartyPayment.Status;
                         partyPayment.ChequeNo = model.GetPartyPayment.ChequeNo;
+                        partyPayment.ChequeDate = model.GetPartyPayment.ChequeDate;
+                        partyPayment.BankName = model.GetPartyPayment.BankName;
+                        partyPayment.BranchName = model.GetPartyPayment.BranchName;
                         partyPayment.TransactionNo = model.GetPartyPayment.TransactionNo;
                         partyPayment.DDNo = model.GetPartyPayment.DDNo;
                         partyPayment.UpdatedBy = model.GetPartyPayment.UpdatedBy;
@@ -106,6 +112,9 @@ namespace ProjectAPI.Controllers.api
                             PaymentMode = model.GetPartyPayment.PaymentMode,
                             Status = model.GetPartyPayment.Status,
                             ChequeNo = model.GetPartyPayment.ChequeNo,
+                            ChequeDate = model.GetPartyPayment.ChequeDate,
+                            BankName = model.GetPartyPayment.BankName,
+                            BranchName = model.GetPartyPayment.BranchName,
                             TransactionNo = model.GetPartyPayment.TransactionNo,
                             DDNo = model.GetPartyPayment.DDNo,
                             Remarks = model.GetPartyPayment.Remarks,
@@ -147,7 +156,7 @@ namespace ProjectAPI.Controllers.api
                             Remarks = partyPayment.Remarks,
                             CreatedBy = partyPayment.CreatedBy,
                             CreatedOn = DateTime.Now,
-                            Particular = "Supply Item ",
+                            Particular = "Payment Recived ",
                         };
                         dbContext.PartyPaymentDetails.Add(partyPaymentDetail);
                     }

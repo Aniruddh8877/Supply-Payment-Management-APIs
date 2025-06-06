@@ -192,12 +192,15 @@
     <Property Name="PartyPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PaymentDate" Type="datetime" Nullable="false" />
     <Property Name="PartyId" Type="int" Nullable="false" />
-    <Property Name="Particular" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Particular" Type="nvarchar" MaxLength="50" />
     <Property Name="Amount" Type="money" Nullable="false" />
     <Property Name="PaymentMode" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Remarks" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
     <Property Name="TransactionNo" Type="nvarchar" MaxLength="50" />
     <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChequeDate" Type="datetime" />
+    <Property Name="BankName" Type="nvarchar" MaxLength="100" />
+    <Property Name="BranchName" Type="nvarchar" MaxLength="100" />
     <Property Name="DDNo" Type="nvarchar" MaxLength="50" />
     <Property Name="Status" Type="tinyint" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -231,7 +234,7 @@
     <Property Name="PartySupplyItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SupplyDate" Type="datetime" Nullable="false" />
     <Property Name="PartyId" Type="int" Nullable="false" />
-    <Property Name="InvoiceNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="InvoiceNo" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Particular" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Attachement" Type="nvarchar" MaxLength="250" />
     <Property Name="FileFormat" Type="nvarchar" MaxLength="100" />
@@ -617,6 +620,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PartyPaymentDetail_PartyPayment">
+    <End Role="PartyPayment" Type="Self.PartyPayment" Multiplicity="0..1" />
+    <End Role="PartyPaymentDetail" Type="Self.PartyPaymentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PartyPayment">
+        <PropertyRef Name="PartyPaymentId" />
+      </Principal>
+      <Dependent Role="PartyPaymentDetail">
+        <PropertyRef Name="PartyPaymentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PartyPaymentDetail_PartySupplyItem">
     <End Role="PartySupplyItem" Type="Self.PartySupplyItem" Multiplicity="0..1" />
     <End Role="PartyPaymentDetail" Type="Self.PartyPaymentDetail" Multiplicity="*" />
@@ -975,6 +990,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_PartyPaymentDetail_PartyDetail" Association="Self.FK_PartyPaymentDetail_PartyDetail">
       <End Role="PartyDetail" EntitySet="PartyDetail" />
+      <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartyPaymentDetail_PartyPayment" Association="Self.FK_PartyPaymentDetail_PartyPayment">
+      <End Role="PartyPayment" EntitySet="PartyPayment" />
       <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_PartyPaymentDetail_PartySupplyItem" Association="Self.FK_PartyPaymentDetail_PartySupplyItem">

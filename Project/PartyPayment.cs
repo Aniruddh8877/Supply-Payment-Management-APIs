@@ -14,6 +14,12 @@ namespace Project
     
     public partial class PartyPayment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PartyPayment()
+        {
+            this.PartyPaymentDetails = new HashSet<PartyPaymentDetail>();
+        }
+    
         public int PartyPaymentId { get; set; }
         public System.DateTime PaymentDate { get; set; }
         public int PartyId { get; set; }
@@ -23,6 +29,9 @@ namespace Project
         public string Remarks { get; set; }
         public string TransactionNo { get; set; }
         public string ChequeNo { get; set; }
+        public Nullable<System.DateTime> ChequeDate { get; set; }
+        public string BankName { get; set; }
+        public string BranchName { get; set; }
         public string DDNo { get; set; }
         public byte Status { get; set; }
         public int CreatedBy { get; set; }
@@ -33,5 +42,7 @@ namespace Project
         public virtual PartyDetail PartyDetail { get; set; }
         public virtual StaffLogin StaffLogin { get; set; }
         public virtual StaffLogin StaffLogin1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartyPaymentDetail> PartyPaymentDetails { get; set; }
     }
 }

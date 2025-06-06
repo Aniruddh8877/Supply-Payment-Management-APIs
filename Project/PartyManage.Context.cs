@@ -40,6 +40,8 @@ namespace Project
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<PageGroup> PageGroups { get; set; }
         public virtual DbSet<PartyDetail> PartyDetails { get; set; }
+        public virtual DbSet<PartyPayment> PartyPayments { get; set; }
+        public virtual DbSet<PartyPaymentDetail> PartyPaymentDetails { get; set; }
         public virtual DbSet<PartySupplyItem> PartySupplyItems { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RoleMenu> RoleMenus { get; set; }
@@ -48,7 +50,5 @@ namespace Project
         public virtual DbSet<StaffLoginRole> StaffLoginRoles { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<StateMaster> StateMasters { get; set; }
-        public virtual DbSet<PartyPayment> PartyPayments { get; set; }
-        public virtual DbSet<PartyPaymentDetail> PartyPaymentDetails { get; set; }
     }
 }

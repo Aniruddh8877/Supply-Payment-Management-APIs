@@ -136,7 +136,7 @@ namespace ProjectAPI.Controllers.api
                             CreditAmount = balanceAccount.Credit,
                             CreatedBy = balanceAccount.CreatedBy,
                             CreatedOn = DateTime.Now,
-                            Particular = "Opening\\",
+                            Particular = "Opening",
                         };
                         dbContext.PartyPaymentDetails.Add(partyPaymentDetail);
 

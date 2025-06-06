@@ -197,12 +197,15 @@
           <Property Name="PartyPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PaymentDate" Type="datetime" Nullable="false" />
           <Property Name="PartyId" Type="int" Nullable="false" />
-          <Property Name="Particular" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Particular" Type="nvarchar" MaxLength="50" />
           <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="PaymentMode" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Remarks" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionNo" Type="nvarchar" MaxLength="50" />
           <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChequeDate" Type="datetime" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BranchName" Type="nvarchar" MaxLength="100" />
           <Property Name="DDNo" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="tinyint" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -236,7 +239,7 @@
           <Property Name="PartySupplyItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SupplyDate" Type="datetime" Nullable="false" />
           <Property Name="PartyId" Type="int" Nullable="false" />
-          <Property Name="InvoiceNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="InvoiceNo" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Particular" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Attachement" Type="nvarchar" MaxLength="250" />
           <Property Name="FileFormat" Type="nvarchar" MaxLength="100" />
@@ -622,6 +625,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PartyPaymentDetail_PartyPayment">
+          <End Role="PartyPayment" Type="Self.PartyPayment" Multiplicity="0..1" />
+          <End Role="PartyPaymentDetail" Type="Self.PartyPaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartyPayment">
+              <PropertyRef Name="PartyPaymentId" />
+            </Principal>
+            <Dependent Role="PartyPaymentDetail">
+              <PropertyRef Name="PartyPaymentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PartyPaymentDetail_PartySupplyItem">
           <End Role="PartySupplyItem" Type="Self.PartySupplyItem" Multiplicity="0..1" />
           <End Role="PartyPaymentDetail" Type="Self.PartyPaymentDetail" Multiplicity="*" />
@@ -982,6 +997,10 @@
             <End Role="PartyDetail" EntitySet="PartyDetail" />
             <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentDetail_PartyPayment" Association="Self.FK_PartyPaymentDetail_PartyPayment">
+            <End Role="PartyPayment" EntitySet="PartyPayment" />
+            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_PartyPaymentDetail_PartySupplyItem" Association="Self.FK_PartyPaymentDetail_PartySupplyItem">
             <End Role="PartySupplyItem" EntitySet="PartySupplyItem" />
             <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetail" />
@@ -1083,6 +1102,8 @@
           <EntitySet Name="Pages" EntityType="PartyManageModel.Page" />
           <EntitySet Name="PageGroups" EntityType="PartyManageModel.PageGroup" />
           <EntitySet Name="PartyDetails" EntityType="PartyManageModel.PartyDetail" />
+          <EntitySet Name="PartyPayments" EntityType="PartyManageModel.PartyPayment" />
+          <EntitySet Name="PartyPaymentDetails" EntityType="PartyManageModel.PartyPaymentDetail" />
           <EntitySet Name="PartySupplyItems" EntityType="PartyManageModel.PartySupplyItem" />
           <EntitySet Name="Roles" EntityType="PartyManageModel.Role" />
           <EntitySet Name="RoleMenus" EntityType="PartyManageModel.RoleMenu" />
@@ -1102,6 +1123,10 @@
           <AssociationSet Name="FK_BalanceAccount_StaffLogin1" Association="PartyManageModel.FK_BalanceAccount_StaffLogin1">
             <End Role="StaffLogin" EntitySet="StaffLogins" />
             <End Role="BalanceAccount" EntitySet="BalanceAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentDetail_BalanceAccount" Association="PartyManageModel.FK_PartyPaymentDetail_BalanceAccount">
+            <End Role="BalanceAccount" EntitySet="BalanceAccounts" />
+            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_City_StaffLogin" Association="PartyManageModel.FK_City_StaffLogin">
             <End Role="StaffLogin" EntitySet="StaffLogins" />
@@ -1175,9 +1200,41 @@
             <End Role="StaffLogin" EntitySet="StaffLogins" />
             <End Role="PartyDetail" EntitySet="PartyDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_PartyPayment_PartyDetail" Association="PartyManageModel.FK_PartyPayment_PartyDetail">
+            <End Role="PartyDetail" EntitySet="PartyDetails" />
+            <End Role="PartyPayment" EntitySet="PartyPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentDetail_PartyDetail" Association="PartyManageModel.FK_PartyPaymentDetail_PartyDetail">
+            <End Role="PartyDetail" EntitySet="PartyDetails" />
+            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_PartySupplyItem_PartyDetail" Association="PartyManageModel.FK_PartySupplyItem_PartyDetail">
             <End Role="PartyDetail" EntitySet="PartyDetails" />
             <End Role="PartySupplyItem" EntitySet="PartySupplyItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentCollection_Staff" Association="PartyManageModel.FK_PartyPaymentCollection_Staff">
+            <End Role="StaffLogin" EntitySet="StaffLogins" />
+            <End Role="PartyPayment" EntitySet="PartyPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentCollection_Staff1" Association="PartyManageModel.FK_PartyPaymentCollection_Staff1">
+            <End Role="StaffLogin" EntitySet="StaffLogins" />
+            <End Role="PartyPayment" EntitySet="PartyPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentDetail_PartyPayment" Association="PartyManageModel.FK_PartyPaymentDetail_PartyPayment">
+            <End Role="PartyPayment" EntitySet="PartyPayments" />
+            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentDetail_PartySupplyItem" Association="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem">
+            <End Role="PartySupplyItem" EntitySet="PartySupplyItems" />
+            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentDetail_StaffLogin" Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin">
+            <End Role="StaffLogin" EntitySet="StaffLogins" />
+            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartyPaymentDetail_StaffLogin1" Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1">
+            <End Role="StaffLogin" EntitySet="StaffLogins" />
+            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_PartySupplyPayment_Staff" Association="PartyManageModel.FK_PartySupplyPayment_Staff">
             <End Role="StaffLogin" EntitySet="StaffLogins" />
@@ -1231,41 +1288,7 @@
             <End Role="StaffLogin" EntitySet="StaffLogins" />
             <End Role="State" EntitySet="States" />
           </AssociationSet>
-          <EntitySet Name="PartyPayments" EntityType="PartyManageModel.PartyPayment" />
-          <AssociationSet Name="FK_PartyPayment_PartyDetail" Association="PartyManageModel.FK_PartyPayment_PartyDetail">
-            <End Role="PartyDetail" EntitySet="PartyDetails" />
-            <End Role="PartyPayment" EntitySet="PartyPayments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartyPaymentCollection_Staff" Association="PartyManageModel.FK_PartyPaymentCollection_Staff">
-            <End Role="StaffLogin" EntitySet="StaffLogins" />
-            <End Role="PartyPayment" EntitySet="PartyPayments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartyPaymentCollection_Staff1" Association="PartyManageModel.FK_PartyPaymentCollection_Staff1">
-            <End Role="StaffLogin" EntitySet="StaffLogins" />
-            <End Role="PartyPayment" EntitySet="PartyPayments" />
-          </AssociationSet>
-          <EntitySet Name="PartyPaymentDetails" EntityType="PartyManageModel.PartyPaymentDetail" />
-          <AssociationSet Name="FK_PartyPaymentDetail_BalanceAccount" Association="PartyManageModel.FK_PartyPaymentDetail_BalanceAccount">
-            <End Role="BalanceAccount" EntitySet="BalanceAccounts" />
-            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartyPaymentDetail_PartyDetail" Association="PartyManageModel.FK_PartyPaymentDetail_PartyDetail">
-            <End Role="PartyDetail" EntitySet="PartyDetails" />
-            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartyPaymentDetail_PartySupplyItem" Association="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem">
-            <End Role="PartySupplyItem" EntitySet="PartySupplyItems" />
-            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartyPaymentDetail_StaffLogin" Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin">
-            <End Role="StaffLogin" EntitySet="StaffLogins" />
-            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartyPaymentDetail_StaffLogin1" Association="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1">
-            <End Role="StaffLogin" EntitySet="StaffLogins" />
-            <End Role="PartyPaymentDetail" EntitySet="PartyPaymentDetails" />
-          </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="App">
           <Key>
             <PropertyRef Name="AppId" />
@@ -1476,9 +1499,61 @@
           <NavigationProperty Name="Location" Relationship="PartyManageModel.FK_PartyDetail_Location" FromRole="PartyDetail" ToRole="Location" />
           <NavigationProperty Name="StaffLogin" Relationship="PartyManageModel.FK_PartyDetail_Staff" FromRole="PartyDetail" ToRole="StaffLogin" />
           <NavigationProperty Name="StaffLogin1" Relationship="PartyManageModel.FK_PartyDetail_Staff1" FromRole="PartyDetail" ToRole="StaffLogin" />
-          <NavigationProperty Name="PartySupplyItems" Relationship="PartyManageModel.FK_PartySupplyItem_PartyDetail" FromRole="PartyDetail" ToRole="PartySupplyItem" />
           <NavigationProperty Name="PartyPayments" Relationship="PartyManageModel.FK_PartyPayment_PartyDetail" FromRole="PartyDetail" ToRole="PartyPayment" />
           <NavigationProperty Name="PartyPaymentDetails" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartyDetail" FromRole="PartyDetail" ToRole="PartyPaymentDetail" />
+          <NavigationProperty Name="PartySupplyItems" Relationship="PartyManageModel.FK_PartySupplyItem_PartyDetail" FromRole="PartyDetail" ToRole="PartySupplyItem" />
+        </EntityType>
+        <EntityType Name="PartyPayment">
+          <Key>
+            <PropertyRef Name="PartyPaymentId" />
+          </Key>
+          <Property Name="PartyPaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="Particular" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PaymentMode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChequeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChequeDate" Type="DateTime" Precision="3" />
+          <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BranchName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PartyDetail" Relationship="PartyManageModel.FK_PartyPayment_PartyDetail" FromRole="PartyPayment" ToRole="PartyDetail" />
+          <NavigationProperty Name="StaffLogin" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff" FromRole="PartyPayment" ToRole="StaffLogin" />
+          <NavigationProperty Name="StaffLogin1" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff1" FromRole="PartyPayment" ToRole="StaffLogin" />
+          <NavigationProperty Name="PartyPaymentDetails" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartyPayment" FromRole="PartyPayment" ToRole="PartyPaymentDetail" />
+        </EntityType>
+        <EntityType Name="PartyPaymentDetail">
+          <Key>
+            <PropertyRef Name="PaymentDetailId" />
+          </Key>
+          <Property Name="PaymentDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PartySupplyItemId" Type="Int32" />
+          <Property Name="Particular" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DebitAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CreditAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PartyPaymentId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="BalanceAccountId" Type="Int32" />
+          <NavigationProperty Name="BalanceAccount" Relationship="PartyManageModel.FK_PartyPaymentDetail_BalanceAccount" FromRole="PartyPaymentDetail" ToRole="BalanceAccount" />
+          <NavigationProperty Name="PartyDetail" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartyDetail" FromRole="PartyPaymentDetail" ToRole="PartyDetail" />
+          <NavigationProperty Name="PartyPayment" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartyPayment" FromRole="PartyPaymentDetail" ToRole="PartyPayment" />
+          <NavigationProperty Name="PartySupplyItem" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem" FromRole="PartyPaymentDetail" ToRole="PartySupplyItem" />
+          <NavigationProperty Name="StaffLogin" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin" FromRole="PartyPaymentDetail" ToRole="StaffLogin" />
+          <NavigationProperty Name="StaffLogin1" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1" FromRole="PartyPaymentDetail" ToRole="StaffLogin" />
         </EntityType>
         <EntityType Name="PartySupplyItem">
           <Key>
@@ -1487,7 +1562,7 @@
           <Property Name="PartySupplyItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SupplyDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PartyId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Particular" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Attachement" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="FileFormat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1500,9 +1575,9 @@
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="PartyPaymentCollectionId" Type="Int32" />
           <NavigationProperty Name="PartyDetail" Relationship="PartyManageModel.FK_PartySupplyItem_PartyDetail" FromRole="PartySupplyItem" ToRole="PartyDetail" />
+          <NavigationProperty Name="PartyPaymentDetails" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem" FromRole="PartySupplyItem" ToRole="PartyPaymentDetail" />
           <NavigationProperty Name="StaffLogin" Relationship="PartyManageModel.FK_PartySupplyPayment_Staff" FromRole="PartySupplyItem" ToRole="StaffLogin" />
           <NavigationProperty Name="StaffLogin1" Relationship="PartyManageModel.FK_PartySupplyPayment_Staff1" FromRole="PartySupplyItem" ToRole="StaffLogin" />
-          <NavigationProperty Name="PartyPaymentDetails" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem" FromRole="PartySupplyItem" ToRole="PartyPaymentDetail" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1588,6 +1663,10 @@
           <NavigationProperty Name="PageGroups" Relationship="PartyManageModel.FK_PageGroup_StaffLogin" FromRole="StaffLogin" ToRole="PageGroup" />
           <NavigationProperty Name="PartyDetails" Relationship="PartyManageModel.FK_PartyDetail_Staff" FromRole="StaffLogin" ToRole="PartyDetail" />
           <NavigationProperty Name="PartyDetails1" Relationship="PartyManageModel.FK_PartyDetail_Staff1" FromRole="StaffLogin" ToRole="PartyDetail" />
+          <NavigationProperty Name="PartyPayments" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff" FromRole="StaffLogin" ToRole="PartyPayment" />
+          <NavigationProperty Name="PartyPayments1" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff1" FromRole="StaffLogin" ToRole="PartyPayment" />
+          <NavigationProperty Name="PartyPaymentDetails" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin" FromRole="StaffLogin" ToRole="PartyPaymentDetail" />
+          <NavigationProperty Name="PartyPaymentDetails1" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1" FromRole="StaffLogin" ToRole="PartyPaymentDetail" />
           <NavigationProperty Name="PartySupplyItems" Relationship="PartyManageModel.FK_PartySupplyPayment_Staff" FromRole="StaffLogin" ToRole="PartySupplyItem" />
           <NavigationProperty Name="PartySupplyItems1" Relationship="PartyManageModel.FK_PartySupplyPayment_Staff1" FromRole="StaffLogin" ToRole="PartySupplyItem" />
           <NavigationProperty Name="Roles" Relationship="PartyManageModel.FK_Role_StaffLogin" FromRole="StaffLogin" ToRole="Role" />
@@ -1601,11 +1680,7 @@
           <NavigationProperty Name="StaffLoginRoles" Relationship="PartyManageModel.FK_StaffLoginRole_StaffLogin" FromRole="StaffLogin" ToRole="StaffLoginRole" />
           <NavigationProperty Name="StaffLoginRoles1" Relationship="PartyManageModel.FK_StaffLoginRole_StaffLogin1" FromRole="StaffLogin" ToRole="StaffLoginRole" />
           <NavigationProperty Name="States" Relationship="PartyManageModel.FK_State_StaffLogin" FromRole="StaffLogin" ToRole="State" />
-          <NavigationProperty Name="PartyPayments" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff" FromRole="StaffLogin" ToRole="PartyPayment" />
-          <NavigationProperty Name="PartyPayments1" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff1" FromRole="StaffLogin" ToRole="PartyPayment" />
-          <NavigationProperty Name="PartyPaymentDetails" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin" FromRole="StaffLogin" ToRole="PartyPaymentDetail" />
-          <NavigationProperty Name="PartyPaymentDetails1" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1" FromRole="StaffLogin" ToRole="PartyPaymentDetail" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="StaffLoginRole">
           <Key>
             <PropertyRef Name="StaffLoginRoleId" />
@@ -1677,6 +1752,18 @@
             </Principal>
             <Dependent Role="BalanceAccount">
               <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentDetail_BalanceAccount">
+          <End Type="PartyManageModel.BalanceAccount" Role="BalanceAccount" Multiplicity="0..1" />
+          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BalanceAccount">
+              <PropertyRef Name="BalanceAccoountId" />
+            </Principal>
+            <Dependent Role="PartyPaymentDetail">
+              <PropertyRef Name="BalanceAccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1900,6 +1987,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PartyPayment_PartyDetail">
+          <End Type="PartyManageModel.PartyDetail" Role="PartyDetail" Multiplicity="1" />
+          <End Type="PartyManageModel.PartyPayment" Role="PartyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartyDetail">
+              <PropertyRef Name="PartyId" />
+            </Principal>
+            <Dependent Role="PartyPayment">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentDetail_PartyDetail">
+          <End Type="PartyManageModel.PartyDetail" Role="PartyDetail" Multiplicity="1" />
+          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartyDetail">
+              <PropertyRef Name="PartyId" />
+            </Principal>
+            <Dependent Role="PartyPaymentDetail">
+              <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PartySupplyItem_PartyDetail">
           <End Type="PartyManageModel.PartyDetail" Role="PartyDetail" Multiplicity="1" />
           <End Type="PartyManageModel.PartySupplyItem" Role="PartySupplyItem" Multiplicity="*" />
@@ -1909,6 +2020,78 @@
             </Principal>
             <Dependent Role="PartySupplyItem">
               <PropertyRef Name="PartyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentCollection_Staff">
+          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="0..1" />
+          <End Type="PartyManageModel.PartyPayment" Role="PartyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffLogin">
+              <PropertyRef Name="StaffLoginId" />
+            </Principal>
+            <Dependent Role="PartyPayment">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentCollection_Staff1">
+          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="1" />
+          <End Type="PartyManageModel.PartyPayment" Role="PartyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffLogin">
+              <PropertyRef Name="StaffLoginId" />
+            </Principal>
+            <Dependent Role="PartyPayment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentDetail_PartyPayment">
+          <End Type="PartyManageModel.PartyPayment" Role="PartyPayment" Multiplicity="0..1" />
+          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartyPayment">
+              <PropertyRef Name="PartyPaymentId" />
+            </Principal>
+            <Dependent Role="PartyPaymentDetail">
+              <PropertyRef Name="PartyPaymentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentDetail_PartySupplyItem">
+          <End Type="PartyManageModel.PartySupplyItem" Role="PartySupplyItem" Multiplicity="0..1" />
+          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartySupplyItem">
+              <PropertyRef Name="PartySupplyItemId" />
+            </Principal>
+            <Dependent Role="PartyPaymentDetail">
+              <PropertyRef Name="PartySupplyItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentDetail_StaffLogin">
+          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="1" />
+          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffLogin">
+              <PropertyRef Name="StaffLoginId" />
+            </Principal>
+            <Dependent Role="PartyPaymentDetail">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartyPaymentDetail_StaffLogin1">
+          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="0..1" />
+          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffLogin">
+              <PropertyRef Name="StaffLoginId" />
+            </Principal>
+            <Dependent Role="PartyPaymentDetail">
+              <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2064,149 +2247,6 @@
               <PropertyRef Name="StaffLoginId" />
             </Principal>
             <Dependent Role="State">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PartyPayment">
-          <Key>
-            <PropertyRef Name="PartyPaymentId" />
-          </Key>
-          <Property Name="PartyPaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PartyId" Type="Int32" Nullable="false" />
-          <Property Name="Particular" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PaymentMode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TransactionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ChequeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Byte" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PartyDetail" Relationship="PartyManageModel.FK_PartyPayment_PartyDetail" FromRole="PartyPayment" ToRole="PartyDetail" />
-          <NavigationProperty Name="StaffLogin" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff" FromRole="PartyPayment" ToRole="StaffLogin" />
-          <NavigationProperty Name="StaffLogin1" Relationship="PartyManageModel.FK_PartyPaymentCollection_Staff1" FromRole="PartyPayment" ToRole="StaffLogin" />
-        </EntityType>
-        <Association Name="FK_PartyPayment_PartyDetail">
-          <End Type="PartyManageModel.PartyDetail" Role="PartyDetail" Multiplicity="1" />
-          <End Type="PartyManageModel.PartyPayment" Role="PartyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PartyDetail">
-              <PropertyRef Name="PartyId" />
-            </Principal>
-            <Dependent Role="PartyPayment">
-              <PropertyRef Name="PartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartyPaymentCollection_Staff">
-          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="0..1" />
-          <End Type="PartyManageModel.PartyPayment" Role="PartyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StaffLogin">
-              <PropertyRef Name="StaffLoginId" />
-            </Principal>
-            <Dependent Role="PartyPayment">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartyPaymentCollection_Staff1">
-          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="1" />
-          <End Type="PartyManageModel.PartyPayment" Role="PartyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StaffLogin">
-              <PropertyRef Name="StaffLoginId" />
-            </Principal>
-            <Dependent Role="PartyPayment">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PartyPaymentDetail">
-          <Key>
-            <PropertyRef Name="PaymentDetailId" />
-          </Key>
-          <Property Name="PaymentDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PartyId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PartySupplyItemId" Type="Int32" />
-          <Property Name="Particular" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="DebitAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="CreditAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PartyPaymentId" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="BalanceAccountId" Type="Int32" />
-          <NavigationProperty Name="BalanceAccount" Relationship="PartyManageModel.FK_PartyPaymentDetail_BalanceAccount" FromRole="PartyPaymentDetail" ToRole="BalanceAccount" />
-          <NavigationProperty Name="PartyDetail" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartyDetail" FromRole="PartyPaymentDetail" ToRole="PartyDetail" />
-          <NavigationProperty Name="PartySupplyItem" Relationship="PartyManageModel.FK_PartyPaymentDetail_PartySupplyItem" FromRole="PartyPaymentDetail" ToRole="PartySupplyItem" />
-          <NavigationProperty Name="StaffLogin" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin" FromRole="PartyPaymentDetail" ToRole="StaffLogin" />
-          <NavigationProperty Name="StaffLogin1" Relationship="PartyManageModel.FK_PartyPaymentDetail_StaffLogin1" FromRole="PartyPaymentDetail" ToRole="StaffLogin" />
-        </EntityType>
-        <Association Name="FK_PartyPaymentDetail_BalanceAccount">
-          <End Type="PartyManageModel.BalanceAccount" Role="BalanceAccount" Multiplicity="0..1" />
-          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BalanceAccount">
-              <PropertyRef Name="BalanceAccoountId" />
-            </Principal>
-            <Dependent Role="PartyPaymentDetail">
-              <PropertyRef Name="BalanceAccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartyPaymentDetail_PartyDetail">
-          <End Type="PartyManageModel.PartyDetail" Role="PartyDetail" Multiplicity="1" />
-          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PartyDetail">
-              <PropertyRef Name="PartyId" />
-            </Principal>
-            <Dependent Role="PartyPaymentDetail">
-              <PropertyRef Name="PartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartyPaymentDetail_PartySupplyItem">
-          <End Type="PartyManageModel.PartySupplyItem" Role="PartySupplyItem" Multiplicity="0..1" />
-          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PartySupplyItem">
-              <PropertyRef Name="PartySupplyItemId" />
-            </Principal>
-            <Dependent Role="PartyPaymentDetail">
-              <PropertyRef Name="PartySupplyItemId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartyPaymentDetail_StaffLogin">
-          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="1" />
-          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StaffLogin">
-              <PropertyRef Name="StaffLoginId" />
-            </Principal>
-            <Dependent Role="PartyPaymentDetail">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartyPaymentDetail_StaffLogin1">
-          <End Type="PartyManageModel.StaffLogin" Role="StaffLogin" Multiplicity="0..1" />
-          <End Type="PartyManageModel.PartyPaymentDetail" Role="PartyPaymentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StaffLogin">
-              <PropertyRef Name="StaffLoginId" />
-            </Principal>
-            <Dependent Role="PartyPaymentDetail">
               <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
@@ -2417,6 +2457,50 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PartyPayments">
+            <EntityTypeMapping TypeName="PartyManageModel.PartyPayment">
+              <MappingFragment StoreEntitySet="PartyPayment">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DDNo" ColumnName="DDNo" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="ChequeDate" ColumnName="ChequeDate" />
+                <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
+                <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Particular" ColumnName="Particular" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PartyPaymentId" ColumnName="PartyPaymentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartyPaymentDetails">
+            <EntityTypeMapping TypeName="PartyManageModel.PartyPaymentDetail">
+              <MappingFragment StoreEntitySet="PartyPaymentDetail">
+                <ScalarProperty Name="BalanceAccountId" ColumnName="BalanceAccountId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="PartyPaymentId" ColumnName="PartyPaymentId" />
+                <ScalarProperty Name="CreditAmount" ColumnName="CreditAmount" />
+                <ScalarProperty Name="DebitAmount" ColumnName="DebitAmount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Particular" ColumnName="Particular" />
+                <ScalarProperty Name="PartySupplyItemId" ColumnName="PartySupplyItemId" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="PaymentDetailId" ColumnName="PaymentDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PartySupplyItems">
             <EntityTypeMapping TypeName="PartyManageModel.PartySupplyItem">
               <MappingFragment StoreEntitySet="PartySupplyItem">
@@ -2537,47 +2621,6 @@
                 <ScalarProperty Name="StateCode" ColumnName="StateCode" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PartyPayments">
-            <EntityTypeMapping TypeName="PartyManageModel.PartyPayment">
-              <MappingFragment StoreEntitySet="PartyPayment">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="DDNo" ColumnName="DDNo" />
-                <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
-                <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Particular" ColumnName="Particular" />
-                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="PartyPaymentId" ColumnName="PartyPaymentId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PartyPaymentDetails">
-            <EntityTypeMapping TypeName="PartyManageModel.PartyPaymentDetail">
-              <MappingFragment StoreEntitySet="PartyPaymentDetail">
-                <ScalarProperty Name="BalanceAccountId" ColumnName="BalanceAccountId" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="PartyPaymentId" ColumnName="PartyPaymentId" />
-                <ScalarProperty Name="CreditAmount" ColumnName="CreditAmount" />
-                <ScalarProperty Name="DebitAmount" ColumnName="DebitAmount" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Particular" ColumnName="Particular" />
-                <ScalarProperty Name="PartySupplyItemId" ColumnName="PartySupplyItemId" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
-                <ScalarProperty Name="PaymentDetailId" ColumnName="PaymentDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -28,6 +28,7 @@ namespace ProjectAPI.Controllers.api
                 PartyDetail model = JsonConvert.DeserializeObject<PartyDetail>(decryptData);
 
                 var list = (from d1 in dbContext.PartyDetails
+                            where model.PartyId == 0 || d1.PartyId == model.PartyId
                             join loc in dbContext.Locations
                             on d1.LocationId equals loc.LocationId into locGroup
                             from loc in locGroup.DefaultIfEmpty()

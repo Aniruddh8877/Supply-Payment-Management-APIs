@@ -263,6 +263,7 @@
     <Compile Include="Controllers\api\PageGroupController.cs" />
     <Compile Include="Controllers\api\PartyDetailsController.cs" />
     <Compile Include="Controllers\api\PartyPaymentController.cs" />
+    <Compile Include="Controllers\api\PartyPaymentDetailsController.cs" />
     <Compile Include="Controllers\api\PartySupplyItemController.cs" />
     <Compile Include="Controllers\api\RoleController.cs" />
     <Compile Include="Controllers\api\RoleMenuController.cs" />
