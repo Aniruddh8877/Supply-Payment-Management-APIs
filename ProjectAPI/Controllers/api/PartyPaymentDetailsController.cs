@@ -41,12 +41,10 @@ namespace ProjectAPI.Controllers.api
                                 DebitAmount = p1.DebitAmount,
                                 CreditAmount = p1.CreditAmount,
                                 InvoiceNo = p1.PartySupplyItem.InvoiceNo,
-                                //SupplyDate = p1.PartySupplyItem.SupplyDate,
                                 CreatedBy = p1.CreatedBy,
                                 CreatedOn = p1.CreatedOn,
                                 UpdatedBy = p1.UpdatedBy,
                                 UpdatedOn = p1.UpdatedOn,
-                                //PaymentDate = p1.PartyPayment.PaymentDate
                             }).ToList();
                 res.PartyPaymentDetailList = list;
                 res.DebitAmount = list.Sum(p1 => p1.DebitAmount);

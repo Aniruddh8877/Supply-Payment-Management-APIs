@@ -11,7 +11,8 @@ namespace Project
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data;
+
     public partial class PartyPaymentDetail
     {
         public int PaymentDetailId { get; set; }
@@ -35,5 +36,10 @@ namespace Project
         public virtual PartySupplyItem PartySupplyItem { get; set; }
         public virtual StaffLogin StaffLogin { get; set; }
         public virtual StaffLogin StaffLogin1 { get; set; }
+
+        public static DataTable NewRow()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

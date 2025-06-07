@@ -75,6 +75,14 @@
     <Compile Include="Database.cs">
       <DependentUpon>PartyManage.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataSet\PartyLadgerHistory.cs">
+      <DependentUpon>PartyLadgerHistory.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\PartyLadgerHistory.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartyLadgerHistory.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Department.cs">
       <DependentUpon>PartyManage.tt</DependentUpon>
     </Compile>
@@ -153,6 +161,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="DataSet\PartyLadgerHistory.xsc">
+      <DependentUpon>PartyLadgerHistory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\PartyLadgerHistory.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PartyLadgerHistory.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet\PartyLadgerHistory.xss">
+      <DependentUpon>PartyLadgerHistory.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="PartyManage.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -177,5 +196,6 @@
       <LastGenOutput>PartyManage.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
