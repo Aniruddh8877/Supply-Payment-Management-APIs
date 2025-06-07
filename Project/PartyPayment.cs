@@ -25,7 +25,7 @@ namespace Project
         public int PartyId { get; set; }
         public string Particular { get; set; }
         public decimal Amount { get; set; }
-        public string PaymentMode { get; set; }
+        public byte PaymentMode { get; set; }
         public string Remarks { get; set; }
         public string TransactionNo { get; set; }
         public string ChequeNo { get; set; }

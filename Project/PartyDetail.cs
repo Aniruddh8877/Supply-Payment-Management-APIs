@@ -17,9 +17,9 @@ namespace Project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PartyDetail()
         {
-            this.PartyPayments = new HashSet<PartyPayment>();
             this.PartyPaymentDetails = new HashSet<PartyPaymentDetail>();
             this.PartySupplyItems = new HashSet<PartySupplyItem>();
+            this.PartyPayments = new HashSet<PartyPayment>();
         }
     
         public int PartyId { get; set; }
@@ -41,10 +41,10 @@ namespace Project
         public virtual StaffLogin StaffLogin { get; set; }
         public virtual StaffLogin StaffLogin1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartyPayment> PartyPayments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartyPaymentDetail> PartyPaymentDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartySupplyItem> PartySupplyItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartyPayment> PartyPayments { get; set; }
     }
 }

@@ -23,42 +23,55 @@ namespace ProjectAPI.Controllers.api
             try
             {
                 PartyManageEntities dbContext = new PartyManageEntities();
+
                 string AppKey = HttpContext.Current.Request.Headers["AppKey"];
                 AppData.CheckAppKey(dbContext, AppKey, (byte)KeyFor.Admin);
+
                 var decryptData = CryptoJs.Decrypt(requestModel.request, CryptoJs.key, CryptoJs.iv);
                 PartyPaymentDetail model = JsonConvert.DeserializeObject<PartyPaymentDetail>(decryptData);
 
                 var list = (from p1 in dbContext.PartyPaymentDetails
-                            where( model.PartyId == p1.PartyId )
+                            where model.PartyId == p1.PartyId
                             select new
                             {
-                                PaymentDetailId = p1.PaymentDetailId,
-                                PartyId = p1.PartyId,
-                                PartyName = p1.PartyDetail.PartyName,
-                                PaymentDate = p1.PaymentDate,
-                                PaymentMode = p1.PartyPayment.PaymentMode,
-                                Particular = p1.Particular,
-                                DebitAmount = p1.DebitAmount,
-                                CreditAmount = p1.CreditAmount,
-                                InvoiceNo = p1.PartySupplyItem.InvoiceNo,
-                                CreatedBy = p1.CreatedBy,
-                                CreatedOn = p1.CreatedOn,
-                                UpdatedBy = p1.UpdatedBy,
-                                UpdatedOn = p1.UpdatedOn,
+                                p1.PaymentDetailId,
+                                p1.PartyId,
+                                PartyName = p1.PartyDetail != null ? p1.PartyDetail.PartyName : "",
+                                p1.PaymentDate,
+                                PaymentMode = p1.PartyPayment != null ? p1.PartyPayment.PaymentMode : (byte)0,
+                                p1.Particular,
+                                p1.DebitAmount,
+                                p1.CreditAmount,
+                                InvoiceNo = p1.PartySupplyItem != null ? p1.PartySupplyItem.InvoiceNo : "",
+                                p1.CreatedBy,
+                                p1.CreatedOn,
+                                p1.UpdatedBy,
+                                p1.UpdatedOn,
                             }).ToList();
+
                 res.PartyPaymentDetailList = list;
-                res.DebitAmount = list.Sum(p1 => p1.DebitAmount);
-                res.CreditAmount = list.Sum(p1 => p1.CreditAmount);
-
-
+                res.DebitAmount = list.Sum(p => p.DebitAmount);
+                res.CreditAmount = list.Sum(p => p.CreditAmount);
                 res.Message = ConstantData.SuccessMessage;
             }
-            catch(Exception ex)
+            catch (DbEntityValidationException ex)
             {
-                res.Message = ex.Message;
+                res.Message = string.Join("; ", ex.EntityValidationErrors
+                    .SelectMany(e => e.ValidationErrors)
+                    .Select(e => e.PropertyName + ": " + e.ErrorMessage));
             }
+            catch (Exception ex)
+            {
+                res.Message = $"Error: {ex.Message}";
+                if (ex.InnerException != null)
+                {
+                    res.Message += $" | Inner: {ex.InnerException.Message}";
+                }
+            }
+
             return res;
-          
         }
+
+
     }
 }

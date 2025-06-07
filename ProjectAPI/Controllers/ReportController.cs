@@ -29,23 +29,19 @@ namespace ProjectAPI.Controllers
                 PartyManageEntities dataContext = new PartyManageEntities();
                 PartyLadgerHistory plh = new PartyLadgerHistory();
 
+                // 1. Company detail
                 DataTable company = plh.CompanyDetail;
-                var c = (from co in dataContext.Companies
-                         select new
-                         {
-                             co.CompanyName,
-                             co.CompanyAddress,
-                             co.CityName,
-                             co.DistrictName,
-                             co.StateName,
-                             co.PinCode,
-                             co.Email,
-                             co.MobileNo,
-                             co.AlternateNo,
-                             co.Website,
-                             co.Logo
-
-                         }).First();
+                var c = dataContext.Companies.Select(co => new
+                {
+                    co.CompanyName,
+                    co.CompanyAddress,
+                    co.CityName,
+                    co.StateName,
+                    co.PinCode,
+                    co.Email,
+                    co.MobileNo,
+                    co.Logo
+                }).First();
 
                 DataRow cRow = company.NewRow();
                 cRow["CompanyName"] = c.CompanyName;
@@ -53,91 +49,83 @@ namespace ProjectAPI.Controllers
                 cRow["City"] = c.CityName;
                 cRow["State"] = c.StateName;
                 cRow["PinCode"] = c.PinCode;
-                cRow["Email"] = c.Email != null ? c.Email : "";
+                cRow["Email"] = c.Email ?? "";
                 cRow["MobileNo"] = "+91 " + c.MobileNo;
-                string imagePath = Server.MapPath(c.Logo);
-                cRow["Logo"] = GetImageAsByteArray(imagePath); // Ensure this is a byte array
+                cRow["Logo"] = GetImageAsByteArray(Server.MapPath(c.Logo));
                 company.Rows.Add(cRow);
 
-
-                var PartyId = Convert.ToInt32(id);
+                // 2. Party detail
+                int PartyId = Convert.ToInt32(id);
                 DataTable Party = plh.PartyDetail;
-                var x = (from p1 in dataContext.PartyPaymentDetails
-                         join a1 in dataContext.PartyDetails on p1.PartyId equals a1.PartyId
-                         where p1.PartyId == PartyId
-                         select new
-                         {
-                             a1.PartyName,
-                             a1.PartyCode,
-                             a1.MobileNo,
-                             a1.AlternateMobileNo,
-                             a1.Email,
-                             a1.Location,
-                             a1.Address,
-                             a1.GSTNo,
-                         }).AsEnumerable()
-                         .Select(h => new
-                         {
-                             h.PartyName,
-                             h.PartyCode,
-                             h.MobileNo,
-                             h.AlternateMobileNo,
-                             h.Location,
-                             h.Address,
-                             h.GSTNo,
-                             h.Email,
-                         }).First();
+
+                var partyInfo = (from p1 in dataContext.PartyPaymentDetails
+                                 join a1 in dataContext.PartyDetails on p1.PartyId equals a1.PartyId
+                                 where p1.PartyId == PartyId
+                                 select a1).FirstOrDefault();
 
                 DataRow bRow = Party.NewRow();
-                bRow["PartyName"] = x.PartyName;
-                bRow["PatryCode"] = x.PartyCode;
-                bRow["MobileNo"] = x.MobileNo;
-                bRow["AlterMobileNo"] = x.AlternateMobileNo ?? "";
-                bRow["Email"] = x.Email ?? "";
-                bRow["Location"] = x.Location;
-                bRow["Address"] = x.Address;
-                bRow["GSTNo"] = x.GSTNo ?? "";
-                Party.Rows.Add(bRow);
+                bRow["PartyName"] = partyInfo.PartyName;
+                bRow["PatryCode"] = partyInfo.PartyCode;
+                bRow["MobileNo"] = partyInfo.MobileNo;
+                bRow["AlterMobileNo"] = partyInfo.AlternateMobileNo ?? "";
+                bRow["Email"] = partyInfo.Email ?? "";
+                bRow["Location"] = partyInfo.Location.LocationName;
+                bRow["Address"] = partyInfo.Address;
+                bRow["GSTNo"] = partyInfo.GSTNo ?? "";
 
-
+                // 3. Payment history
                 DataTable Payment = plh.PartyLadgeHistory;
-                var charge = (from d1 in dataContext.PartyPaymentDetails
-                              join p1 in dataContext.PartyDetails on d1.PartyId equals p1.PartyId
-                              join o in dataContext.PartyPayments on d1.PartyId equals o.PartyId
-                              where o.PartyId == PartyId
-                              select new
-                              {
-                                  d1.CreditAmount,
-                                  d1.DebitAmount,
-                                  d1.PaymentDate,
-                                  d1.Particular,
-                                  o.PaymentMode,
 
-                              }).ToList();
+               var chargeDetail = (from d1 in dataContext.PartyPaymentDetails
+                                    join p1 in dataContext.PartyDetails on d1.PartyId equals p1.PartyId
+                                    join o in dataContext.PartyPayments on d1.PartyId equals o.PartyId
+                                    where o.PartyId == PartyId
+                                    select new
+                                    {
+                                        d1.CreditAmount,
+                                        d1.DebitAmount,
+                                        PaymentDate = (DateTime?)o.PaymentDate,
+                                        d1.Particular,
+                                        o.PaymentMode
+                                    }).ToList();
 
+                var charge = chargeDetail.Select(x => new
+                {
+                    x.CreditAmount,
+                    x.DebitAmount,
+                    x.PaymentDate,
+                    x.Particular,
+                    PaymentModeName = Enum.GetName(typeof(PaymentMode), x.PaymentMode),
+                }).ToList();
 
-                   
+                var CreditSum = charge.Sum(x => x.CreditAmount);
+                var DebitSum = charge.Sum(x => x.DebitAmount);
+
                 foreach (var item in charge)
                 {
 
-               
-
                     DataRow pRow = Payment.NewRow();
-                    pRow["PaymentDate"] = item.PaymentDate;
+                    pRow["PaymentDate"] = item.PaymentDate?.ToString("dd-MM-yyyy") ?? "N/A";
                     pRow["Particular"] = item.Particular;
-                    pRow["PaymentMode"] = item.PaymentMode ?? "";
-                    pRow["CreditAmount"] = item.CreditAmount ;
+                    pRow["PaymentMode"] = item.PaymentModeName != null ? item.PaymentModeName : "";
+                    pRow["CreditAmount"] = item.CreditAmount;
                     pRow["DebitAmount"] = item.DebitAmount;
-                    pRow["Credits"] =+ item.CreditAmount;
-                    pRow["Debits"] =+ item.DebitAmount;
-                    pRow["BalanceAmount"] = + item.DebitAmount - item.CreditAmount;
-
+                    //pRow["Credits"] = CreditSum;
+                    //pRow["Debits"] = DebitSum;
+                    pRow["BalanceAmount"] = item.DebitAmount - item.CreditAmount;
                     Payment.Rows.Add(pRow);
                 }
+                var Total = DebitSum - CreditSum;
+                bRow["Total"] = Total;
+                bRow["Credits"] = CreditSum;
+                bRow["Debits"] = DebitSum;
+                Party.Rows.Add(bRow);
 
                 ReportDocument rp = new ReportDocument();
-                rp.Load(Server.MapPath("~/Reports/InvoiceBill.rpt"));
+                string reportPath = Server.MapPath("~/Reports/Balance.rpt");
+                rp.Load(reportPath);
                 rp.SetDataSource(plh);
+
                 System.IO.Stream ms = rp.ExportToStream(ExportFormatType.PortableDocFormat);
                 if (rp != null)
                 {
@@ -151,14 +139,16 @@ namespace ProjectAPI.Controllers
                 Response.AddHeader("content-length", ms.Length.ToString());
                 Response.BinaryWrite(AppData.ReadFully(ms));
                 Response.End();
-
-
             }
             catch (Exception ex)
             {
-                ViewBag.Message = ex.Message;
+                return Content("Error: " + ex.Message + "\n\nStackTrace:\n" + ex.StackTrace);
             }
             return View();
         }
+
+
+
+
     }
 }

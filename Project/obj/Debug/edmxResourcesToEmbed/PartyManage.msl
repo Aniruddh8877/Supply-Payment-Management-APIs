@@ -201,30 +201,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PartyPayments">
-      <EntityTypeMapping TypeName="PartyManageModel.PartyPayment">
-        <MappingFragment StoreEntitySet="PartyPayment">
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="DDNo" ColumnName="DDNo" />
-          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
-          <ScalarProperty Name="BankName" ColumnName="BankName" />
-          <ScalarProperty Name="ChequeDate" ColumnName="ChequeDate" />
-          <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
-          <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
-          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="Particular" ColumnName="Particular" />
-          <ScalarProperty Name="PartyId" ColumnName="PartyId" />
-          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-          <ScalarProperty Name="PartyPaymentId" ColumnName="PartyPaymentId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PartyPaymentDetails">
       <EntityTypeMapping TypeName="PartyManageModel.PartyPaymentDetail">
         <MappingFragment StoreEntitySet="PartyPaymentDetail">
@@ -365,6 +341,30 @@
           <ScalarProperty Name="StateCode" ColumnName="StateCode" />
           <ScalarProperty Name="StateName" ColumnName="StateName" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PartyPayments">
+      <EntityTypeMapping TypeName="PartyManageModel.PartyPayment">
+        <MappingFragment StoreEntitySet="PartyPayment">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DDNo" ColumnName="DDNo" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="ChequeDate" ColumnName="ChequeDate" />
+          <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
+          <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Particular" ColumnName="Particular" />
+          <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PartyPaymentId" ColumnName="PartyPaymentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -194,7 +194,7 @@
     <Property Name="PartyId" Type="int" Nullable="false" />
     <Property Name="Particular" Type="nvarchar" MaxLength="50" />
     <Property Name="Amount" Type="money" Nullable="false" />
-    <Property Name="PaymentMode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PaymentMode" Type="tinyint" Nullable="false" />
     <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
     <Property Name="TransactionNo" Type="nvarchar" MaxLength="50" />
     <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
