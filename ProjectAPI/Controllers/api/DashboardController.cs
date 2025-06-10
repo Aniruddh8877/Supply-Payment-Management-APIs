@@ -20,7 +20,7 @@ namespace ProjectAPI.Controllers.api
         [Route("DashboardSummary")]
         public ExpandoObject GetDashboardSummary(RequestModel requestModel)
         {
-            dynamic res = new ExpandoObject();
+            dynamic response = new ExpandoObject();
             try
             {
                 PartyManageEntities dbContext = new PartyManageEntities();
@@ -40,20 +40,20 @@ namespace ProjectAPI.Controllers.api
                 var monthlySupply = dbContext.PartySupplyItems.Where(x => x.SupplyDate >= monthStart && x.SupplyDate <= today).Sum(x => (decimal?)x.Amount) ?? 0;
                 var monthlyPayment = dbContext.PartyPayments.Where(x => x.PaymentDate >= monthStart && x.PaymentDate <= today).Sum(x => (decimal?)x.Amount) ?? 0;
 
-                res.TodaySupply = todaySupply;
-                res.TodayPayment = todayPayment;
-                res.WeeklySupply = weeklySupply;
-                res.WeeklyPayment = weeklyPayment;
-                res.MonthlySupply = monthlySupply;
-                res.MonthlyPayment = monthlyPayment;
-                res.Message = ConstantData.SuccessMessage;
+                response.TodaySupply = todaySupply;
+                response.TodayPayment = todayPayment;
+                response.WeeklySupply = weeklySupply;
+                response.WeeklyPayment = weeklyPayment;
+                response.MonthlySupply = monthlySupply;
+                response.MonthlyPayment = monthlyPayment;
+                response.Message = ConstantData.SuccessMessage;
             }
             catch (Exception ex)
             {
-                res.Message = $"Error: {ex.Message}";
+                response.Message = $"Error: {ex.Message}";
             }
 
-            return res;
+            return response;
         }
 
 
