@@ -76,17 +76,16 @@ namespace ProjectAPI.Controllers
                 // 3. Payment history
                 DataTable Payment = plh.PartyLadgeHistory;
 
-               var chargeDetail = (from d1 in dataContext.PartyPaymentDetails
-                                    join p1 in dataContext.PartyDetails on d1.PartyId equals p1.PartyId
-                                    join o in dataContext.PartyPayments on d1.PartyId equals o.PartyId
-                                    where o.PartyId == PartyId
+                var chargeDetail = (from d1 in dataContext.PartyPaymentDetails
+                                    where d1.PartyId == PartyId
                                     select new
                                     {
                                         d1.CreditAmount,
                                         d1.DebitAmount,
-                                        PaymentDate = (DateTime?)o.PaymentDate,
+                                        PaymentDate = (DateTime?)d1.PaymentDate,
                                         d1.Particular,
-                                        o.PaymentMode
+                                        PaymentMode = (byte?)d1.PartyPayment.PaymentMode, // Nullable byte
+                                        d1.PartySupplyItem.InvoiceNo,
                                     }).ToList();
 
                 var charge = chargeDetail.Select(x => new
@@ -95,8 +94,12 @@ namespace ProjectAPI.Controllers
                     x.DebitAmount,
                     x.PaymentDate,
                     x.Particular,
-                    PaymentModeName = Enum.GetName(typeof(PaymentMode), x.PaymentMode),
+                    PaymentModeName = x.PaymentMode.HasValue
+                        ? Enum.GetName(typeof(PaymentMode), x.PaymentMode)
+                        : "",
+                    x.InvoiceNo,
                 }).ToList();
+
 
                 var CreditSum = charge.Sum(x => x.CreditAmount);
                 var DebitSum = charge.Sum(x => x.DebitAmount);
@@ -112,6 +115,7 @@ namespace ProjectAPI.Controllers
                     pRow["DebitAmount"] = item.DebitAmount;
                     //pRow["Credits"] = CreditSum;
                     //pRow["Debits"] = DebitSum;
+                    pRow["InvoiceNo"] = item.InvoiceNo;
                     pRow["BalanceAmount"] = item.DebitAmount - item.CreditAmount;
                     Payment.Rows.Add(pRow);
                 }

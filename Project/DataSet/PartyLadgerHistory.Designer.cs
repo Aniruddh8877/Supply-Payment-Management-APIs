@@ -1097,6 +1097,8 @@ namespace Project.DataSet {
             
             private global::System.Data.DataColumn columnPaymentDate;
             
+            private global::System.Data.DataColumn columnInvoiceNo;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public PartyLadgeHistoryDataTable() {
@@ -1196,6 +1198,14 @@ namespace Project.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn InvoiceNoColumn {
+                get {
+                    return this.columnInvoiceNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1231,7 +1241,7 @@ namespace Project.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public PartyLadgeHistoryRow AddPartyLadgeHistoryRow(string Particular, string PaymentMode, decimal DebitAmount, decimal CreditAmount, decimal Credits, decimal Debits, decimal BalanceAmount, string PaymentDate) {
+            public PartyLadgeHistoryRow AddPartyLadgeHistoryRow(string Particular, string PaymentMode, decimal DebitAmount, decimal CreditAmount, decimal Credits, decimal Debits, decimal BalanceAmount, string PaymentDate, string InvoiceNo) {
                 PartyLadgeHistoryRow rowPartyLadgeHistoryRow = ((PartyLadgeHistoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Particular,
@@ -1241,7 +1251,8 @@ namespace Project.DataSet {
                         Credits,
                         Debits,
                         BalanceAmount,
-                        PaymentDate};
+                        PaymentDate,
+                        InvoiceNo};
                 rowPartyLadgeHistoryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPartyLadgeHistoryRow);
                 return rowPartyLadgeHistoryRow;
@@ -1272,6 +1283,7 @@ namespace Project.DataSet {
                 this.columnDebits = base.Columns["Debits"];
                 this.columnBalanceAmount = base.Columns["BalanceAmount"];
                 this.columnPaymentDate = base.Columns["PaymentDate"];
+                this.columnInvoiceNo = base.Columns["InvoiceNo"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1293,6 +1305,8 @@ namespace Project.DataSet {
                 base.Columns.Add(this.columnBalanceAmount);
                 this.columnPaymentDate = new global::System.Data.DataColumn("PaymentDate", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPaymentDate);
+                this.columnInvoiceNo = new global::System.Data.DataColumn("InvoiceNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoiceNo);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2125,6 +2139,22 @@ namespace Project.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string InvoiceNo {
+                get {
+                    try {
+                        return ((string)(this[this.tablePartyLadgeHistory.InvoiceNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InvoiceNo\' in table \'PartyLadgeHistory\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePartyLadgeHistory.InvoiceNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsParticularNull() {
                 return this.IsNull(this.tablePartyLadgeHistory.ParticularColumn);
             }
@@ -2217,6 +2247,18 @@ namespace Project.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetPaymentDateNull() {
                 this[this.tablePartyLadgeHistory.PaymentDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsInvoiceNoNull() {
+                return this.IsNull(this.tablePartyLadgeHistory.InvoiceNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetInvoiceNoNull() {
+                this[this.tablePartyLadgeHistory.InvoiceNoColumn] = global::System.Convert.DBNull;
             }
         }
         

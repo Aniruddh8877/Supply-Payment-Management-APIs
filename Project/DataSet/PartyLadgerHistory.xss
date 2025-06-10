@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:PartyDetail" ZOrder="2" X="9" Y="234" Height="238" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="234" />
     <Shape ID="DesignTable:CompanyDetail" ZOrder="3" X="4" Y="3" Height="220" Width="155" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
-    <Shape ID="DesignTable:PartyLadgeHistory" ZOrder="1" X="174" Y="9" Height="181" Width="173" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="177" />
+    <Shape ID="DesignTable:PartyLadgeHistory" ZOrder="1" X="174" Y="9" Height="200" Width="173" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="196" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

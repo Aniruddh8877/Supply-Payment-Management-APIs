@@ -253,6 +253,7 @@
     <Compile Include="Controllers\api\CityController.cs" />
     <Compile Include="Controllers\api\CompanyController.cs" />
     <Compile Include="Controllers\api\CreditsController.cs" />
+    <Compile Include="Controllers\api\DashboardController.cs" />
     <Compile Include="Controllers\api\DebitsController.cs" />
     <Compile Include="Controllers\api\DepartmentController.cs" />
     <Compile Include="Controllers\api\DesignationController.cs" />

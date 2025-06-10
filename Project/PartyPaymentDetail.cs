@@ -15,6 +15,7 @@ namespace Project
     public partial class PartyPaymentDetail
     {
         public int PaymentDetailId { get; set; }
+        public int? LocationId { get; set; }
         public int PartyId { get; set; }
         public System.DateTime PaymentDate { get; set; }
         public Nullable<int> PartySupplyItemId { get; set; }
